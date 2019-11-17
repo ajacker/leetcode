@@ -17,7 +17,7 @@ class Solution {
         for (int i = 0; i < words.length; i++) {
             String str = words[i];
             char[] chars = str.toCharArray();
-            boolean res=true;
+            boolean res = true;
             boolean f1 = false, f2 = false, f3 = false;
             for (int j = 0; j < chars.length; j++) {
                 char c = Character.toLowerCase(chars[j]);
@@ -35,7 +35,7 @@ class Solution {
                         res = false;
                         break;
                     }
-                } else if (s3.contains(c)){
+                } else if (s3.contains(c)) {
                     if (j == 0) {
                         f3 = true;
                     } else if (!f3) {
@@ -44,7 +44,7 @@ class Solution {
                     }
                 }
             }
-            if(res){
+            if (res) {
                 result.add(str);
             }
         }
