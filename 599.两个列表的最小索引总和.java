@@ -34,7 +34,7 @@ class Solution {
                     both.add(list2[i]);
                 }
             }
-        
+        }
         return both.toArray(new String[0]);
     }
 }
