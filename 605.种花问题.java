@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /*
  * @lc app=leetcode.cn id=605 lang=java
  *
@@ -18,7 +16,7 @@ class Solution {
             if (i + 1 < flowerbed.length && flowerbed[i + 1] == 1) {
                 canPlant = false;
             }
-            if (canPlant&&flowerbed[i]==0) {
+            if (canPlant && flowerbed[i] == 0) {
                 count++;
                 flowerbed[i] = 1;
             }
