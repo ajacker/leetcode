@@ -11,38 +11,23 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
+        // 头指针
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode prevNode = dummy;
+        while ((head != null) && (head.next != null)) {
+            // 需要交换的节点
+            ListNode firstNode = head;
+            ListNode secondNode = head.next;
+            // 交换
+            prevNode.next = secondNode;
+            firstNode.next = secondNode.next;
+            secondNode.next = firstNode;
+            // 跳跃两个
+            prevNode = firstNode;
+            head = firstNode.next;
         }
-        ListNode top = new ListNode(-1);
-        top.next = head;
-        ListNode h = top;
-        ListNode p = h.next;
-        ListNode q = p.next;
-        outer: while (true) {
-            if (p == null | q == null) {
-                break;
-            }
-            // 交换p，q
-            p.next = q.next;
-            h.next = q;
-            q.next = p;
-            // p，q交换后指针顺序反了，需要换回来
-            ListNode t = p;
-            p = q;
-            q = t;
-            // 前进两步
-            for (int i = 0; i < 2; i++) {
-                h = h.next;
-                if (h.next == null) {
-                    // 走到头了不能交换了
-                    break outer;
-                }
-                p = h.next;
-                q = p.next;
-            }
-        }
-        return top.next;
+        return dummy.next;
     }
 }
 // @lc code=end
