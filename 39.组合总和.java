@@ -14,11 +14,11 @@ class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         res = new ArrayList<>();
         temp = new ArrayList<>();
-        method(candidates, target, 0);
+        method(candidates, target, 0, 0);
         return res;
     }
 
-    public void method(int[] candidates, int target, int curSum) {
+    public void method(int[] candidates, int target, int curSum, int curIndex) {
         // 判断是否满足条件
         if (curSum == target) {
             res.add(new ArrayList<>(temp));
@@ -26,14 +26,11 @@ class Solution {
             // 剪枝
             return;
         }
-        for (int i = 0; i < candidates.length; i++) {
+        for (int i = curIndex; i < candidates.length; i++) {
             int cur = candidates[i];
-            // 为了避免重复，只能非降序添加
-            if (temp.size() == 0 || temp.get(temp.size() - 1) <= cur) {
-                temp.add(cur);
-                method(candidates, target, curSum + cur);
-                temp.remove(temp.size() - 1);
-            }
+            temp.add(cur);
+            method(candidates, target, curSum + cur, i);
+            temp.remove(temp.size() - 1);
         }
     }
 }
