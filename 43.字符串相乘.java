@@ -7,44 +7,29 @@
 // @lc code=start
 class Solution {
     public String multiply(String num1, String num2) {
-        char[] big, small;
-        if (num1.length() > num2.length()) {
-            big = new StringBuilder(num1).reverse().toString().toCharArray();
-            small = new StringBuilder(num2).reverse().toString().toCharArray();
-        } else {
-            big = new StringBuilder(num2).reverse().toString().toCharArray();
-            small = new StringBuilder(num1).reverse().toString().toCharArray();
-        }
-        if (small.length == 1 && small[0] == '0') {
+        if (num1.equals("0") || num2.equals("0")) {
             return "0";
         }
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < small.length; i++) {
-            int s = small[i] - '0';
-            int last = 0;
-            for (int j = 0; j < big.length; j++) {
-                int b = big[j] - '0';
-                int cur = s * b + last;
-                if (res.length() > i + j) {
-                    // 这一位有数字
-                    int now = res.charAt(i + j) - '0';
-                    // 进位 + 当前数 + 这一位本来的数 % 10就是现在的值
-                    res.setCharAt(i + j, (char) ((now + cur) % 10 + '0'));
-                    // 得到新的进位，这一位相加的进位，加上乘积的进位
-                    last = (now + cur) / 10;
-                } else {
-                    // 这一位没有数字，就添加
-                    res.append(cur % 10);
-                    // 得到进位
-                    last = cur / 10;
-                }
-                // 处理最后一个进位
-                if (j == big.length - 1 && last != 0) {
-                    res.append(last);
-                }
+        // 结果不会超过这么多位
+        int[] res = new int[num1.length() + num2.length()];
+        for (int i = num1.length() - 1; i >= 0; i--) {
+            int n1 = num1.charAt(i) - '0';
+            for (int j = num2.length() - 1; j >= 0; j--) {
+                int n2 = num2.charAt(j) - '0';
+                int sum = (res[i + j + 1] + n1 * n2);
+                res[i + j + 1] = sum % 10;
+                res[i + j] += sum / 10;
             }
         }
-        return res.reverse().toString();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < res.length; i++) {
+            // 跳过前导0
+            if (i == 0 && res[i] == 0) {
+                continue;
+            }
+            result.append(res[i]);
+        }
+        return result.toString();
     }
 }
 // @lc code=end
