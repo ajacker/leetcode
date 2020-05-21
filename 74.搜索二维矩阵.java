@@ -14,24 +14,17 @@ class Solution {
             return false;
         }
         n = matrix[0].length;
-        int res = binarySearch(matrix, target, 0, m * n);
-        System.out.println(res);
-        return res != -1;
-    }
-
-    public int binarySearch(int[][] matrix, int target, int l, int r) {
-        if (l < r) {
-            int mid = (l + r) / 2;
+        int l = 0, r = m * n;
+        while (l < r) {
+            int mid = (l + r) >>> 1;
             int num = getVal(matrix, mid);
-            if (num == target) {
-                return mid;
-            } else if (num < target) {
-                return binarySearch(matrix, target, mid + 1, r);
+            if (num < target) {
+                l = mid + 1;
             } else {
-                return binarySearch(matrix, target, l, mid);
+                r = mid;
             }
         }
-        return -1;
+        return l < m * n && getVal(matrix, l) == target;
     }
 
     public int getVal(int[][] matrix, int idx) {
